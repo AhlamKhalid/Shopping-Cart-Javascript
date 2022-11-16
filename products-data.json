@@ -1,0 +1,32 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "img": "./makeup.jpeg",
+      "name": "Red lipstick",
+      "price": 16,
+      "quantity": 2
+    },
+    {
+      "id": 2,
+      "img": "./makeup-2.jpeg",
+      "name": "Makeup set",
+      "price": 32,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "img": "./makeup.jpeg",
+      "name": "Red lipstick",
+      "price": 16,
+      "quantity": 4
+    },
+    {
+      "id": 4,
+      "img": "./makeup-2.jpeg",
+      "name": "Makeup set",
+      "price": 32,
+      "quantity": 1
+    }
+  ]
+}
