@@ -13,7 +13,12 @@ closeBtn.addEventListener("click", () => {
 });
 
 /* variables */
+// products data
 let productsArray = [];
+// all products (as NodeList)
+let productsNodeList;
+// all products (as Array)
+let productsNodeArray;
 
 /* functions */
 // get products
@@ -33,7 +38,7 @@ const displayProducts = () => {
   let productsHTML = "";
   productsArray.forEach((product) => {
     productsHTML += `
-        <div class="product">
+        <div id="${product.id}" class="product">
           <div class="details">
             <img src=${product.img} alt=${product.name} class="product-img" />
             <div class="product-info">
@@ -51,7 +56,7 @@ const displayProducts = () => {
                 <i class="fa-solid fa-plus fa-sm"></i>
               </button>
             </div>
-            <button class="trash-btn">
+            <button data-product-id="${product.id}" class="trash-btn">
               <i class="fa-solid fa-trash-can fa-lg"></i>
             </button>
           </div>
@@ -62,7 +67,38 @@ const displayProducts = () => {
   cartProducts.innerHTML = productsHTML;
 };
 
+// remove a product
+const removeProduct = (trashButton) => {
+  const productToRemove = productsNodeArray.find(
+    (product) => product.id === trashButton.dataset.productId
+  );
+  // remove product from DOM
+  productToRemove.remove();
+  // remove product from products array
+  productsArray = productsArray.filter(
+    (product) => product.id !== parseInt(trashButton.dataset.productId)
+  );
+};
+
+// add event listeners to elements
+const addEvents = () => {
+  // all trash buttons
+  const allTrashButtons = document.querySelectorAll(".trash-btn");
+  // add an event for each trash button
+  allTrashButtons.forEach((trashButton) => {
+    trashButton.addEventListener("click", () => {
+      removeProduct(trashButton);
+    });
+  });
+};
+
 // after fetching data
 getProducts().then(() => {
   displayProducts();
+
+  productsNodeList = document.querySelectorAll(".product");
+  // convert a NodeList to an Array; to use array functions
+  productsNodeArray = Array.from(productsNodeList);
+
+  addEvents();
 });
