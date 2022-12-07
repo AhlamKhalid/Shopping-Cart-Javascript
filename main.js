@@ -48,7 +48,7 @@ const displayProducts = () => {
           </div>
           <div class="controls">
             <div class="quantity">
-              <button class="decrement-btn">
+              <button data-product-id="${product.id}" class="decrement-btn">
                 <i class="fa-solid fa-minus fa-sm"></i>
               </button>
               <p class="quantity-num">${product.quantity}</p>
@@ -69,6 +69,7 @@ const displayProducts = () => {
 
 // remove a product
 const removeProduct = (trashButton) => {
+  // product to remove
   const productToRemove = productsNodeArray.find(
     (product) => product.id === trashButton.dataset.productId
   );
@@ -80,6 +81,42 @@ const removeProduct = (trashButton) => {
   );
 };
 
+// decrease quantity
+const decreaseQuantity = (decrementButton) => {
+  // product to decrease
+  const productToDecrease = productsNodeArray.find(
+    (product) => product.id === decrementButton.dataset.productId
+  );
+
+  // index of product
+  const productIndex = productsArray.findIndex(
+    (product) => product.id === parseInt(decrementButton.dataset.productId)
+  );
+
+  // steps:
+  // 1- update products array
+  // 2- update UI
+
+  // if quantity is 1, remove the product
+  if (productsArray[productIndex].quantity === 1) {
+    // remove product from DOM
+    productToDecrease.remove();
+    // remove product from products array
+    productsArray = productsArray.filter(
+      (product) => product.id !== parseInt(decrementButton.dataset.productId)
+    );
+  }
+  // if quantity is greater than 1,
+  else {
+    // update products array
+    productsArray[productIndex].quantity =
+      productsArray[productIndex].quantity - 1;
+    // update quantity element
+    const quantityNumElement = productToDecrease.querySelector(".quantity-num");
+    quantityNumElement.textContent = productsArray[productIndex].quantity;
+  }
+};
+
 // add event listeners to elements
 const addEvents = () => {
   // all trash buttons
@@ -88,6 +125,15 @@ const addEvents = () => {
   allTrashButtons.forEach((trashButton) => {
     trashButton.addEventListener("click", () => {
       removeProduct(trashButton);
+    });
+  });
+
+  // all decrement buttons
+  const allDecrementButtons = document.querySelectorAll(".decrement-btn");
+  // add an event for each decrement button
+  allDecrementButtons.forEach((decrementButton) => {
+    decrementButton.addEventListener("click", () => {
+      decreaseQuantity(decrementButton);
     });
   });
 };
