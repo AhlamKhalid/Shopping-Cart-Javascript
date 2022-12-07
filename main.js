@@ -73,6 +73,11 @@ const removeProduct = (trashButton) => {
   const productToRemove = productsNodeArray.find(
     (product) => product.id === trashButton.dataset.productId
   );
+
+  // steps:
+  // 1- update products array
+  // 2- update UI
+
   // remove product from DOM
   productToRemove.remove();
   // remove product from products array
