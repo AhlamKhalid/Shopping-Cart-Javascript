@@ -4,6 +4,7 @@ const cartSidebar = document.getElementById("cart-sidebar");
 const closeBtn = document.getElementById("close-btn");
 const cartProducts = document.getElementById("cart-products");
 const totalPriceElement = document.getElementById("total-price");
+const totalQuantityElement = document.getElementById("total-quantity");
 
 cartBtn.addEventListener("click", () => {
   cartSidebar.classList.add("show");
@@ -157,6 +158,8 @@ const addEvents = () => {
       removeProduct(trashButton);
       // update total price
       updateTotalPrice();
+      // update total quantity
+      updateTotalQuantity();
     });
   });
 
@@ -168,6 +171,8 @@ const addEvents = () => {
       decreaseQuantity(decrementButton);
       // update total price
       updateTotalPrice();
+      // update total quantity
+      updateTotalQuantity();
     });
   });
 
@@ -179,6 +184,8 @@ const addEvents = () => {
       increaseQuantity(incrementButton);
       // update total price
       updateTotalPrice();
+      // update total quantity
+      updateTotalQuantity();
     });
   });
 };
@@ -195,16 +202,26 @@ const updateTotalPrice = () => {
   totalPriceElement.textContent = totalPrice;
 };
 
+// update total quantity
+const updateTotalQuantity = () => {
+  const initialTotalQuantity = 0;
+
+  const totalQuantity = productsArray.reduce(
+    (total, product) => total + product.quantity,
+    initialTotalQuantity
+  );
+
+  totalQuantityElement.textContent = totalQuantity;
+};
+
 // after fetching data
 getProducts().then(() => {
   displayProducts();
-
   // all products as NodeList
   productsNodeList = document.querySelectorAll(".product");
   // convert a NodeList to an Array; to use array functions
   productsNodeArray = Array.from(productsNodeList);
-
   updateTotalPrice();
-
+  updateTotalQuantity();
   addEvents();
 });
