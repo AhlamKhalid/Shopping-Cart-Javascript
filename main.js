@@ -52,7 +52,7 @@ const displayProducts = () => {
                 <i class="fa-solid fa-minus fa-sm"></i>
               </button>
               <p class="quantity-num">${product.quantity}</p>
-              <button class="increment-btn">
+              <button data-product-id="${product.id}" class="increment-btn">
                 <i class="fa-solid fa-plus fa-sm"></i>
               </button>
             </div>
@@ -122,6 +122,30 @@ const decreaseQuantity = (decrementButton) => {
   }
 };
 
+// increase quantity
+const increaseQuantity = (incrementButton) => {
+  // product to increase
+  const productToIncrease = productsNodeArray.find(
+    (product) => product.id === incrementButton.dataset.productId
+  );
+
+  // index of product
+  const productIndex = productsArray.findIndex(
+    (product) => product.id === parseInt(incrementButton.dataset.productId)
+  );
+
+  // steps:
+  // 1- update products array
+  // 2- update UI
+
+  // update products array
+  productsArray[productIndex].quantity =
+    productsArray[productIndex].quantity + 1;
+  // update quantity element
+  const quantityNumElement = productToIncrease.querySelector(".quantity-num");
+  quantityNumElement.textContent = productsArray[productIndex].quantity;
+};
+
 // add event listeners to elements
 const addEvents = () => {
   // all trash buttons
@@ -139,6 +163,15 @@ const addEvents = () => {
   allDecrementButtons.forEach((decrementButton) => {
     decrementButton.addEventListener("click", () => {
       decreaseQuantity(decrementButton);
+    });
+  });
+
+  // all increment buttons
+  const allIncrementButtons = document.querySelectorAll(".increment-btn");
+  // add an event for each increment button
+  allIncrementButtons.forEach((incrementButton) => {
+    incrementButton.addEventListener("click", () => {
+      increaseQuantity(incrementButton);
     });
   });
 };
