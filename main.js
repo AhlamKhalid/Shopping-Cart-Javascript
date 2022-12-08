@@ -5,6 +5,7 @@ const closeBtn = document.getElementById("close-btn");
 const cartProducts = document.getElementById("cart-products");
 const totalPriceElement = document.getElementById("total-price");
 const totalQuantityElement = document.getElementById("total-quantity");
+const totalQuantityText = document.getElementById("total-quantity-text");
 
 cartBtn.addEventListener("click", () => {
   cartSidebar.classList.add("show");
@@ -212,6 +213,13 @@ const updateTotalQuantity = () => {
   );
 
   totalQuantityElement.textContent = totalQuantity;
+
+  // "item" or "items" based on total quantity
+  if (totalQuantity === 1) {
+    totalQuantityText.textContent = "item";
+  } else {
+    totalQuantityText.textContent = "items";
+  }
 };
 
 // after fetching data
