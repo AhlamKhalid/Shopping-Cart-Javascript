@@ -5,13 +5,13 @@
       "img": "./makeup.jpeg",
       "name": "Red lipstick",
       "price": 2,
-      "quantity": 2
+      "quantity": 3
     },
     {
       "id": 2,
       "img": "./makeup-2.jpeg",
       "name": "Makeup set",
-      "price": 2,
+      "price": 3,
       "quantity": 1
     },
     {

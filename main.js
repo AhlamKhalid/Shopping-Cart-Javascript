@@ -155,6 +155,8 @@ const addEvents = () => {
   allTrashButtons.forEach((trashButton) => {
     trashButton.addEventListener("click", () => {
       removeProduct(trashButton);
+      // update total price
+      updateTotalPrice();
     });
   });
 
@@ -164,6 +166,8 @@ const addEvents = () => {
   allDecrementButtons.forEach((decrementButton) => {
     decrementButton.addEventListener("click", () => {
       decreaseQuantity(decrementButton);
+      // update total price
+      updateTotalPrice();
     });
   });
 
@@ -173,6 +177,8 @@ const addEvents = () => {
   allIncrementButtons.forEach((incrementButton) => {
     incrementButton.addEventListener("click", () => {
       increaseQuantity(incrementButton);
+      // update total price
+      updateTotalPrice();
     });
   });
 };
