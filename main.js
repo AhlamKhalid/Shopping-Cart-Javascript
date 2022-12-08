@@ -3,6 +3,7 @@ const cartBtn = document.getElementById("cart-btn");
 const cartSidebar = document.getElementById("cart-sidebar");
 const closeBtn = document.getElementById("close-btn");
 const cartProducts = document.getElementById("cart-products");
+const totalPriceElement = document.getElementById("total-price");
 
 cartBtn.addEventListener("click", () => {
   cartSidebar.classList.add("show");
@@ -176,13 +177,28 @@ const addEvents = () => {
   });
 };
 
+// update total price
+const updateTotalPrice = () => {
+  const initialTotalPrice = 0;
+
+  const totalPrice = productsArray.reduce(
+    (total, product) => total + product.price * product.quantity,
+    initialTotalPrice
+  );
+
+  totalPriceElement.textContent = totalPrice;
+};
+
 // after fetching data
 getProducts().then(() => {
   displayProducts();
 
+  // all products as NodeList
   productsNodeList = document.querySelectorAll(".product");
   // convert a NodeList to an Array; to use array functions
   productsNodeArray = Array.from(productsNodeList);
+
+  updateTotalPrice();
 
   addEvents();
 });
