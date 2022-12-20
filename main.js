@@ -26,11 +26,6 @@ let productsNodeArray;
 /* functions */
 // get products
 const getProducts = async () => {
-  // fetch("./products-data.json")
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     productsArray = data.products;
-  //   });
   const response = await fetch("./products-data.json");
   const data = await response.json();
   productsArray = data.products;
