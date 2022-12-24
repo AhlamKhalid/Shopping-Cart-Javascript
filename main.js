@@ -82,6 +82,8 @@ const removeProduct = (trashButton) => {
   productsArray = productsArray.filter(
     (product) => product.id !== parseInt(trashButton.dataset.productId)
   );
+  // update the Nodes array
+  updateNodesArray();
 };
 
 // decrease quantity
@@ -108,6 +110,8 @@ const decreaseQuantity = (decrementButton) => {
     productsArray = productsArray.filter(
       (product) => product.id !== parseInt(decrementButton.dataset.productId)
     );
+    // update the Nodes array
+    updateNodesArray();
   }
   // if quantity is greater than 1,
   else {
@@ -186,6 +190,14 @@ const addEvents = () => {
   });
 };
 
+// in case of removing a product from DOM, update the Nodes array
+const updateNodesArray = () => {
+  // all products as NodeList
+  productsNodeList = document.querySelectorAll(".product");
+  // convert a NodeList to an Array; to use array functions
+  productsNodeArray = Array.from(productsNodeList);
+};
+
 // update total price
 const updateTotalPrice = () => {
   const initialTotalPrice = 0;
@@ -220,10 +232,7 @@ const updateTotalQuantity = () => {
 // after fetching data
 getProducts().then(() => {
   displayProducts();
-  // all products as NodeList
-  productsNodeList = document.querySelectorAll(".product");
-  // convert a NodeList to an Array; to use array functions
-  productsNodeArray = Array.from(productsNodeList);
+  updateNodesArray();
   updateTotalPrice();
   updateTotalQuantity();
   addEvents();
